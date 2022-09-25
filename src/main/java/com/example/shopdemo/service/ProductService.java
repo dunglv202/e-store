@@ -13,6 +13,7 @@ public interface ProductService {
     Product addProduct(@Valid Product product);
 
     Product updateProduct(@Valid Product product);
+    Product changeQuantity(Integer productId, Integer amount);
 
     Product deleteProduct(Integer productId);
 }
