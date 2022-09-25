@@ -50,3 +50,13 @@ create table `user_authorities` (
     constraint `fk_user` foreign key (`user_id`) references `users`(`id`),
     constraint `fk_authority` foreign key (`authority_id`) references `authorities`(`id`)
 );
+
+create table `cart_items` (
+    `id` int not null primary key auto_increment,
+    `product_id` int not null,
+    `quantity` int not null,
+    `user_id` int not null,
+
+    constraint `fk_product` foreign key (`product_id`) references `products`(`id`),
+    constraint `fk_cart_user` foreign key (`user_id`) references `users`(`id`)
+);

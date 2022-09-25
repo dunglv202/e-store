@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProduct(Integer productId) {
-        return productRepo.findById(productId).orElseThrow(() -> new NotFoundException("Product - ID: " + productId));
+        return productRepo.findById(productId).orElseThrow(() -> new NotFoundException("Product not exists - ID: " + productId));
     }
 
     @Override

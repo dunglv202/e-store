@@ -34,7 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .disable()
                 .authorizeRequests()
+                .mvcMatchers("/api/v1/carts/**")
+                    .hasRole("CUSTOMER")
                 .anyRequest()
-                    .permitAll();
+                    .permitAll()
+                .and()
+                .httpBasic();
     }
 }
