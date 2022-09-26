@@ -3,6 +3,7 @@ package com.example.shopdemo.service.impl;
 import com.example.shopdemo.entity.Brand;
 import com.example.shopdemo.entity.Category;
 import com.example.shopdemo.entity.Product;
+import com.example.shopdemo.exception.InsufficientException;
 import com.example.shopdemo.exception.NotFoundException;
 import com.example.shopdemo.repository.ProductRepository;
 import com.example.shopdemo.service.BrandService;
@@ -61,6 +62,15 @@ public class ProductServiceImpl implements ProductService {
         // set brand and category
         assemble(product);
 
+        return productRepo.save(product);
+    }
+
+    @Override
+    public Product changeQuantity(Integer productId, Integer amount) {
+        Product product = getProduct(productId);
+        if (product.getQuantity() + amount < 0)
+            throw new InsufficientException("Insufficient quantity for " + product.getName() + ", in stock: " + product.getQuantity());
+        product.setQuantity(product.getQuantity() + amount);
         return productRepo.save(product);
     }
 

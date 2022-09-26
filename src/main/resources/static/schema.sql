@@ -60,3 +60,32 @@ create table `cart_items` (
     constraint `fk_product` foreign key (`product_id`) references `products`(`id`),
     constraint `fk_cart_user` foreign key (`user_id`) references `users`(`id`)
 );
+
+create table `recipients` (
+    `id` int not null primary key auto_increment,
+    `name` varchar(80) not null,
+    `phone_number` varchar(20) not null,
+    `address` varchar(150) not null
+);
+
+create table `orders` (
+    `id` int not null primary key auto_increment,
+    `user_id` int not null,
+    `recipient_id` int not null,
+    `payment_method` varchar(80) not null,
+    `notes` text,
+    `status` varchar(80) not null,
+    `date_created` timestamp not null,
+
+    constraint `fk_orders_users` foreign key (`user_id`) references `users` (`id`),
+    constraint `fk_orders_recipients` foreign key (`recipient_id`) references `recipients` (`id`)
+);
+
+create table `order_items` (
+    `id` int not null primary key auto_increment,
+    `product_id` int not null,
+    `quantity` int not null,
+    `order_id` int not null,
+
+    constraint `fk_order_items_order` foreign key (`product_id`) references `products` (`id`)
+);
