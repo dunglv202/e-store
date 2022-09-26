@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #container {
+            width: 100%;
+            font-size: 16px;
+        }
+        #order-details {
+            padding: 1.5rem;
+            background: #ebedf0;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .title {
+            font-weight: 600;
+        }
+        #main td {
+            padding: 0.7rem 0;
+        }
+        #main td, #products + tr td {
+            border-top: solid 1px #d9dce1;
+        }
+        #main .no-hr td {
+            border-top: none;
+        }
+
+        .right {
+            text-align: right;
+        }
+        .ita {
+            font-style: italic;
+        }
+        .upper {
+            text-transform: uppercase;
+        }
+        @media screen and (min-width: 850px) {
+            #container {
+                padding: 50px 0;
+            }
+            #main {
+                width: 700px;
+            }
+            p {
+                text-align: justify;
+            }
+        }
+    </style>
+</head>
+<body>
+<table id="container">
+    <tr>
+        <td></td>
+        <td id="main">
+            <p style="font-size: 1.5rem">
+                Hi, <span th:text="${order.user.details.lastName}" style="font-style: italic">Dung</span>
+            </p>
+            <p>
+                Thank you for trusting and making your order at TheHeckShop.com,
+                We will notify you when your order is successfully verified.
+                Below are your order details, <span style="font-weight: 600;">please check the order one more time for mistakes before we verify your order:</span>
+            </p>
+
+            <table id="order-details">
+                <tr class="no-hr">
+                    <td class="title">Recipient</td>
+                    <td class="upper right" th:text="${order.recipient.name}">
+                        Luu Van Dung
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">Tel</td>
+                    <td class="right" th:text="${order.recipient.phoneNumber}">
+                        033x xxx xxx
+                    </td>
+                </tr>
+                <tr>
+                    <td class="title">Address</td>
+                    <td class="ita right" th:text="${order.recipient.address}">
+                        Ha Noi, Vietnam
+                    </td>
+                </tr>
+
+                <tr id="products">
+                    <td class="title">Products</td>
+                    <td class="title right">Total</td>
+                </tr>
+                <tr class="no-hr" th:each="item : ${order.items}">
+                    <td th:text="|${item.product.name} x ${item.quantity}|">
+                        iPhone 14 Pro 246GB x 10
+                    </td>
+                    <td class="right" th:text="${#numbers.formatCurrency(item.total)}">
+                        $349,999,000
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="title">Shipping</td>
+                    <td class="ita right">Free shipping</td>
+                </tr>
+
+                <tr>
+                    <td class="title">Total</td>
+                    <td class="right" th:text="${#numbers.formatCurrency(order.total)}" style="color: dodgerblue; font-weight: 600">
+                        $349,999,000
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="title">Payment</td>
+                    <td class="upper right" th:text="${order.payment.toString()}">
+                        Cash On Delivery (COD)
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td></td>
+    </tr>
+</table>
+</body>
+</html>

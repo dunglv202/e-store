@@ -3,15 +3,21 @@ package com.example.shopdemo.service.impl;
 import com.example.shopdemo.entity.*;
 import com.example.shopdemo.enumtype.OrderStatus;
 import com.example.shopdemo.exception.NotFoundException;
+import com.example.shopdemo.pojo.Mail;
 import com.example.shopdemo.repository.CartItemRepository;
 import com.example.shopdemo.repository.OrderRepository;
+import com.example.shopdemo.service.MailService;
 import com.example.shopdemo.service.OrderService;
 import com.example.shopdemo.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -20,15 +26,20 @@ import javax.validation.Valid;
 @Transactional
 @Validated
 public class OrderServiceImpl implements OrderService {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private OrderRepository orderRepo;
     private ProductService productService;
     private CartItemRepository cartItemRepo;
+    private MailService mailService;
+    private TemplateEngine templateEngine;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepo, ProductService productService, CartItemRepository cartItemRepo) {
+    public OrderServiceImpl(OrderRepository orderRepo, ProductService productService, CartItemRepository cartItemRepo, MailService mailService, TemplateEngine templateEngine) {
         this.orderRepo = orderRepo;
         this.productService = productService;
         this.cartItemRepo = cartItemRepo;
+        this.mailService = mailService;
+        this.templateEngine = templateEngine;
     }
 
     @Override
@@ -56,8 +67,12 @@ public class OrderServiceImpl implements OrderService {
         // save order as new order
         order.setId(null);
         order.setStatus(OrderStatus.PENDING);
+        order = orderRepo.save(order);
 
-        return orderRepo.save(order);
+        // send confirmation email
+        sendConfirmationEmail(order, "order-confirmation");
+
+        return order;
     }
 
     private void processOrder(Order order) {
@@ -98,5 +113,24 @@ public class OrderServiceImpl implements OrderService {
         });
 
         return found;
+    }
+
+    private void sendConfirmationEmail(Order order, String template) {
+        Context context = new Context();
+        context.setVariable("order", order);
+
+        String renderedTemplate = templateEngine.process(template, context);
+
+        Mail mail = new Mail();
+        mail.setRecipient(order.getUser().getDetails().getEmail());
+        mail.setSubject("Your order at TheHeckShop.com is being processed #" + order.getId());
+        mail.setContent(renderedTemplate);
+
+        try {
+            mailService.send(mail);
+        } catch (Exception e) {
+            logger.error("Couldn't send email");
+            e.printStackTrace();
+        }
     }
 }
