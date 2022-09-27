@@ -1,6 +1,7 @@
 package com.example.shopdemo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -24,6 +25,7 @@ public class User {
 
     @Column(name = "password")
     @NotEmpty(message = "Password is required")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled")

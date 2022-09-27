@@ -1,5 +1,6 @@
 package com.example.shopdemo.handler;
 
+import com.example.shopdemo.exception.UnauthenticatedException;
 import com.example.shopdemo.pojo.RestResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,15 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
+    @ExceptionHandler(UnauthenticatedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public RestResponse unauthenticated(UnauthenticatedException e) {
+        return RestResponse
+                .build()
+                .status(HttpStatus.UNAUTHORIZED)
+                .messages(e.getMessage());
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public RestResponse constraintViolations(ConstraintViolationException e) {
