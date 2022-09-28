@@ -1,5 +1,8 @@
 package com.example.shopdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -32,6 +35,10 @@ public class Product {
     @NotNull(message = "Quantity is required")
     @PositiveOrZero(message = "Invalid quantity")
     private Integer quantity;
+
+    @Formula("(select r.avg_rating from product_ratings r where r.product_id = id)")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Double rating;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -93,6 +100,10 @@ public class Product {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getRating() {
+        return rating;
     }
 
     public Category getCategory() {

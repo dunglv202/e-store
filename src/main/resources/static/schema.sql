@@ -89,3 +89,22 @@ create table `order_items` (
 
     constraint `fk_order_items_order` foreign key (`product_id`) references `products` (`id`)
 );
+
+create table `reviews` (
+    `id` int not null primary key auto_increment,
+    `rating` int not null,
+    `comment` text,
+    `date_created` timestamp not null,
+    `order_item_id` int not null,
+
+    constraint `fk_reviews_order_items` foreign key (`order_item_id`) references `order_items` (`id`)
+);
+
+create view `product_ratings` as
+select p.`id` as `product_id`, p.`name` as `product_name`, avg(r.rating) as avg_rating
+from `products` p
+left join `order_items` oi
+    on p.`id` = oi.`product_id`
+left join `reviews` r
+    on oi.`id` = r.`order_item_id`
+group by p.`id`;

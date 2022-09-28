@@ -5,10 +5,12 @@ import com.example.shopdemo.entity.Category;
 import com.example.shopdemo.entity.Product;
 import com.example.shopdemo.exception.InsufficientException;
 import com.example.shopdemo.exception.NotFoundException;
+import com.example.shopdemo.pojo.ProductSpecs;
 import com.example.shopdemo.repository.ProductRepository;
 import com.example.shopdemo.service.BrandService;
 import com.example.shopdemo.service.CategoryService;
 import com.example.shopdemo.service.ProductService;
+import com.example.shopdemo.spec.ProductSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +36,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> getAllProducts(Pageable pagination) {
-        return productRepo.findAll(pagination);
+    public Page<Product> getAllProducts(ProductSpecs specs, Pageable pagination) {
+        return productRepo.findAll(ProductSpecifications.matchesSpec(specs), pagination);
     }
 
     @Override

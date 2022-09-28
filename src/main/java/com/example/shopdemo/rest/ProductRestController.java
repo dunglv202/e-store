@@ -1,6 +1,7 @@
 package com.example.shopdemo.rest;
 
 import com.example.shopdemo.entity.Product;
+import com.example.shopdemo.pojo.ProductSpecs;
 import com.example.shopdemo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,8 +21,11 @@ public class ProductRestController {
 
     @GetMapping("")
     public List<Product> getAllProducts(@RequestParam Integer page,
-                                        @RequestParam Integer size) {
-        return productService.getAllProducts(PageRequest.of(page, size)).toList();
+                                        @RequestParam Integer size,
+                                        @RequestParam(required = false) Object search,
+                                        ProductSpecs specs) {
+        if (search == null) specs.setKeyword(null);
+        return productService.getAllProducts(specs, PageRequest.of(page, size)).toList();
     }
 
     @GetMapping("/{productId}")
