@@ -65,12 +65,14 @@ public class ProductSpecifications {
                 case BY_RATING_DESC:
                     field = root.get("rating");
                     break;
+                case BY_NEWEST:
+                case BY_OLDEST:
+                    field = root.get("dateCreated");
+                    break;
                 default:
                     return null;
             }
-
             query.orderBy(orderType.isAscending() ? criteriaBuilder.asc(field) : criteriaBuilder.desc(field));
-
             return null;
         };
     }

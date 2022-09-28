@@ -3,6 +3,7 @@ package com.example.shopdemo.handler;
 import com.example.shopdemo.exception.UnauthenticatedException;
 import com.example.shopdemo.pojo.RestResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,9 +33,9 @@ public class RestExceptionHandler {
                 .messages(e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList()));
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public RestResponse globalHandler(Exception e) {
+    public RestResponse globalHandler(BindException e) {
         e.printStackTrace();
         return RestResponse
                 .build()

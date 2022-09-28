@@ -15,6 +15,7 @@ create table `products` (
     `preview` varchar(200),
     `price` double not null ,
     `in_stock_quantity` int not null,
+    `date_created` timestamp not null,
     `category_id` int,
     `brand_id` int,
 

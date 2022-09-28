@@ -1,12 +1,14 @@
 package com.example.shopdemo.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
@@ -40,6 +42,10 @@ public class Product {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Double rating;
 
+    @Column(name = "date_created")
+    @CreationTimestamp
+    private LocalDateTime dateCreated;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -51,13 +57,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer id, String name, String preview, String description, Double price, Integer quantity, Category category, Brand brand) {
+    public Product(Integer id, String name, String preview, String description, Double price, Integer quantity, LocalDateTime dateCreated, Category category, Brand brand) {
         this.id = id;
         this.name = name;
         this.preview = preview;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.dateCreated = dateCreated;
         this.category = category;
         this.brand = brand;
     }
@@ -128,5 +135,9 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 }

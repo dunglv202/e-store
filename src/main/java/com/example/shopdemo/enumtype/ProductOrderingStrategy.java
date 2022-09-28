@@ -6,7 +6,9 @@ public enum ProductOrderingStrategy {
     BY_PRICE_ASC (true),
     BY_PRICE_DESC (false),
     BY_RATING_ASC (true),
-    BY_RATING_DESC (false);
+    BY_RATING_DESC (false),
+    BY_OLDEST (true),
+    BY_NEWEST (false);
 
     private boolean isAscending;
 
