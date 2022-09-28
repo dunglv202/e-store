@@ -33,9 +33,9 @@ public class RestExceptionHandler {
                 .messages(e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList()));
     }
 
-    @ExceptionHandler(BindException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public RestResponse globalHandler(BindException e) {
+    public RestResponse globalHandler(Exception e) {
         e.printStackTrace();
         return RestResponse
                 .build()
