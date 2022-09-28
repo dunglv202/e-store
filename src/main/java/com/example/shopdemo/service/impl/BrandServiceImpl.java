@@ -31,7 +31,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand getBrand(Integer id) {
-        return brandRepo.findById(id).orElseThrow(() -> new NotFoundException("Category - ID: " + id));
+        return brandRepo.findById(id).orElseThrow(() -> new NotFoundException("Brand does not exist - ID: " + id));
     }
 
     @Override
