@@ -1,5 +1,6 @@
 package com.example.shopdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Range;
@@ -8,7 +9,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "reviews")
 public class Review {
+    public static interface OnCreation{}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,8 +33,9 @@ public class Review {
     private LocalDateTime dateCreated;
 
     @OneToOne
-    @JoinColumn(name = "order_item_id")
-    @JsonProperty()
+    @JoinColumn(name = "order_item_id", updatable = false)
+    @NotNull(message = "Order item must be specified for reviews", groups = {OnCreation.class})
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private OrderItem orderItem;
 
     public Review() {
@@ -73,5 +79,10 @@ public class Review {
 
     public void setOrderItem(OrderItem orderItem) {
         this.orderItem = orderItem;
+    }
+
+    public void merge(Review review) {
+        this.rating = review.rating == null ? this.rating : review.rating;
+        this.comment = review.comment == null ? this.comment : review.comment;
     }
 }
