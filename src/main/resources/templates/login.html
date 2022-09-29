@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div id="container">
+        <div id="messages">
+            <ul class="message success" th:if="${param.logout}">
+                Successfully logged out
+            </ul>
+            <ul class="message error" th:if="${param.error}">
+                Bad credentials
+            </ul>
+        </div>
+        <form id="login-form" action="/login" method="POST">
+            <div class="field username">
+                <input type="text" id="username" name="username" tabindex="1" required autofocus>
+                <label for="username">Username</label>
+            </div>
+            <div class="field">
+                <input type="password" id="password" name="password" tabindex="2" required>
+                <label for="password">Password</label>
+            </div>
+            <div class="additional-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember-me" tabindex="3" name="remember-me">
+                    <label for="remember-me">
+                        Remember me
+                    </label>
+                </div>
+                <a href="/reset" tabindex="5">Forget Password</a>
+            </div>
+
+            <input id="login-btn" type="submit" tabindex="4" value="Login">
+        </form>
+        <hr>
+        <div id="nav">
+            Don't have an account ? <a href="/register" tabindex="6">Register</a>
+        </div>
+    </div>
+</body>
+</html>

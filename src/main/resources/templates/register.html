@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+    <div id="container">
+        <div id="messages">
+            <ul class="message success" th:if="${param.success}">
+                Successfully registered. <a href="/login">Login</a>.
+            </ul>
+            <ul class="message error" th:if="${messages}">
+                <li th:each="message : ${messages}" th:text="${message}"></li>
+            </ul>
+        </div>
+        <form id="registration-form" action="/register" method="POST" th:object="${user}">
+            <div class="field username">
+                <input type="text" id="username" required autofocus th:field="*{username}">
+                <label for="username">Username</label>
+            </div>
+            <div class="field">
+                <input type="password" id="password" required th:field="*{password}">
+                <label for="password">Password</label>
+            </div>
+            <div class="field">
+                <input type="password" id="re-password" required>
+                <label for="re-password">Re-Password</label>
+            </div>
+            <div class="field">
+                <input type="text" id="first-name" th:field="*{details.firstName}">
+                <label for="first-name">First Name</label>
+            </div>
+            <div class="field">
+                <input type="text" id="last-name" required th:field="*{details.lastName}">
+                <label for="last-name">Last Name</label>
+            </div>
+            <div class="field email">
+                <input type="email" id="email" required th:field="*{details.email}">
+                <label for="email">Email</label>
+            </div>
+            <div id="roles" class="field" style="display: none">
+                <label class="role">
+                    <input type="checkbox" name="roles" value="1">
+                    Manager
+                </label>
+                <label>Roles</label>
+            </div>
+
+            <input id="register-btn" type="submit" value="Register">
+        </form>
+        <hr>
+        <div id="nav">
+            Already have an account ? <a href="/login">Login</a>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            document.getElementById("registration-form").onsubmit = function(e) {
+                e.preventDefault();
+                let passwordEle = document.getElementById("password");
+                let rePasswordEle =document.getElementById("re-password").value
+                if (passwordEle.value !== rePasswordEle.value) {
+                    this.submit();
+                } else {
+                    passwordEle.value = "";
+                    rePasswordEle.value = "";
+                    alert("Password and Re-Password don't match");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

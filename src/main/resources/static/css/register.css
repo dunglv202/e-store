@@ -1,0 +1,128 @@
+body {
+    font-family: "Segoe UI";
+    display: flex;
+    justify-content: center;
+}
+#container {
+    flex-grow: 1;
+    max-width: 800px;
+}
+
+#messages {
+    padding: 0 2rem;
+}
+.message {
+    padding: 0.8rem 1rem 0.8rem 30px;
+    border-radius: 4px;
+    margin-bottom: 0;
+}
+.message.error {
+    border-left: solid 4px rgba(220, 20, 60, 0.8);
+    background: rgba(220, 20, 60, 0.08);
+    color: crimson;
+    /* color: #fff; */
+}
+.message.warning {
+    border-left: solid 4px rgba(255, 166, 0, 0.8);
+    background: rgba(255, 166, 0, 0.08);
+    color: orange;
+}
+.message.success {
+    border-left: solid 4px rgba(30, 143, 255, 0.8);
+    background: rgba(30, 143, 255, 0.08);
+    color: dodgerblue;
+}
+
+input:not(input[type="radio"]), textarea, select {
+    border: solid 1px rgba(119, 136, 153, 0.5);
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: transparent;
+}
+input:not(input[type="radio"], input[type="submit"]):focus, textarea:focus, select:focus {
+    border-color: transparent;
+    outline: none;
+    box-shadow: 0px 0px 0px 2px dodgerblue, 0px 0px 0px 5px rgba(30, 143, 255, 0.199);
+}
+label:not(.role) {
+    display: block;
+    font-weight: 600;
+    margin: 0.5rem 0;
+}
+input:required ~ label::after {
+    content: " (*)";
+    color: crimson;
+}
+input:focus ~ label:not(input[type="checkbox"] + label) {
+    color: dodgerblue;
+}
+form input[type="submit"] {
+    background-color: rgb(43, 43, 43);
+    color: #f1f1f1;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    padding: 0.9rem;
+    border: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+input[type="submit"]:hover {
+    background-color: dodgerblue;
+}
+
+#registration-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    padding: 2rem;
+}
+.field {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+.field.username, .field.email, #register-btn {
+    grid-column: 2 span;
+}
+.role {
+    width: 100%;
+    padding: 5px 0;
+}
+.role input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+}
+
+hr {
+    /* box-shadow: 0; */
+    border: solid 1px rgba(43, 43, 43, 0.2);
+    margin: 0rem 2rem 1rem;
+}
+#nav {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+#nav a {
+    color: dodgerblue;
+}
+
+@media screen and (max-width: 700px) {
+    #registration-form {
+        grid-template-columns: 1fr;
+    }
+    .field.username, .field.email, #register-btn {
+        grid-column: 1 span;
+    }
+}
+
+@media screen and (max-width: 435px) {
+    #registration-form {
+        padding: 1rem;
+    }
+    hr {
+        margin: 1rem;
+    }
+}

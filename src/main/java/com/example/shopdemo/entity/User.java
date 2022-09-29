@@ -44,7 +44,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
-    Set<Authority> authorities = new HashSet<>();
+    private Set<Authority> authorities = new HashSet<>();
 
     public User() {
     }
