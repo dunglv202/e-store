@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+    <div id="cart-container">
+        <div style="max-height: 550px; overflow: auto">
+            <table id="item-table">
+                <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <div id="cart-actions">
+            <a href="/">
+                <button class="btn">
+                    Continue Shopping
+                </button>
+            </a>
+            <div class="gap"></div>
+            <button id="update-cart-btn" class="btn">
+                Update Cart
+            </button>
+            <a href="/checkout">
+                <button class="btn checkout-btn">
+                    Checkout
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <script type="module" src="/js/my-cart.js"></script>
+</body>
+</html>

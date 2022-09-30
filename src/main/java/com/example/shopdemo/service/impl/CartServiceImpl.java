@@ -63,10 +63,10 @@ public class CartServiceImpl implements CartService {
     @Validated({CartItem.onUpdate.class})
     public CartItem updateItem(@Valid CartItem item, User user) {
         // check if item exists and owner's request
-        CartItem old = getItem(item.getId(), user);
+        CartItem found = getItem(item.getId(), user);
 
-        item.setProduct(old.getProduct());
-        return itemRepo.save(item);
+        found.merge(item);
+        return itemRepo.save(found);
     }
 
     @Override

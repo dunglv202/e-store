@@ -42,7 +42,6 @@ public class CartItem {
         this.user = user;
         this.product = product;
         this.quantity = quantity;
-        refreshTotal();
     }
 
     public Integer getId() {
@@ -59,7 +58,6 @@ public class CartItem {
 
     public void setProduct(Product product) {
         this.product = product;
-        refreshTotal();
     }
 
     public Integer getQuantity() {
@@ -68,14 +66,9 @@ public class CartItem {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-        refreshTotal();
     }
 
     public Double getTotal() {
-        return refreshTotal();
-    }
-
-    private Double refreshTotal() {
         if (this.product == null || this.product.getPrice() == null || this.quantity == null)
             return -1.0;
 
@@ -88,5 +81,9 @@ public class CartItem {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void merge(CartItem that) {
+        this.quantity = that.quantity == null ? this.quantity : that.quantity;
     }
 }
