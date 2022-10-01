@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/css/checkout.css">
+</head>
+<body>
+    <form id="order-form">
+        <div id="billing-details">
+            <h2 class="sec-title">Billing Details</h2>
+            <div class="container">
+                <div id="recipient-field" class="field">
+                    <input type="text" id="recipient" name="recipient" required autofocus>
+                    <label>Recipient</label>
+                </div>
+                <div id="phone-number-field" class="field">
+                    <input type="tel" id="phone-number" name="recipientPhoneNumber" required>
+                    <label>Phone Number</label>
+                </div>
+                <div id="delivery-location-field" class="field">
+                    <input type="text" id="delivery-location" name="deliveryLocation" required>
+                    <label>Delivery Location</label>
+                </div>
+                <div id="order-note-field" class="field">
+                    <textarea id="order-note" name="additionalNotes"></textarea>
+                    <label>Order Note</label>
+                </div>
+            </div>
+        </div>
+        <div id="order">
+            <h2 class="sec-title">Your order</h2>
+            <div id="order-details">
+                <table id="item-list" class="order-part">
+                    <thead>
+                    <tr>
+                        <th style="text-align: left" class="title">Product</th>
+                        <th style="text-align: right" class="title">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div id="shipping-fee" class="order-part inline">
+                    <div class="title">Shipping</div>
+                    <div class="free-shipping">Free shipping</div>
+                </div>
+                <div id="total" class="order-part inline">
+                    <div class="title">Total</div>
+                    <div class="currency value"></div>
+                </div>
+                <div id="payment" class="order-part">
+                    <div class="title">Payment</div>
+                    <div class="payment-option">
+                        <input type="radio" id="cod" name="methodOfPayment" value="CASH_ON_DELIVERY" checked>
+                        <label for="cod">Cash on delivery (COD)</label>
+                    </div>
+                    <div class="payment-option disabled" title="Temporarily not supported">
+                        <input type="radio" id="debit" name="methodOfPayment" value="DEBIT_CARD" disabled>
+                        <label for="debit">Debit Card</label>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" id="place-order-btn" value="Place Order">
+        </div>
+    </form>
+
+    <script type="module" src="/js/checkout.js"></script>
+</body>
+</html>
