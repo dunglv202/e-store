@@ -113,7 +113,7 @@ group by p.`id`;
 create table `product_images` (
     `id` int not null primary key auto_increment,
     `image_path` varchar(200) not null,
-    `product_id` int not null,
+    `product_id` int not null
 
-    constraint `fk_product_images_products` foreign key (`product_id`) references `products` (`id`)
+#     ,constraint `fk_product_images_products` foreign key (`product_id`) references `products` (`id`)
 );

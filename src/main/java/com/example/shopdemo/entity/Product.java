@@ -140,4 +140,14 @@ public class Product {
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
+
+    public void merge(Product product) {
+        this.brand = product.brand == null ? this.brand : product.brand;
+        this.category = product.category == null ? this.category : product.category;
+        this.price = product.price == null ? this.price : product.price;
+        this.quantity = product.quantity == null ? this.quantity : product.quantity;
+        this.name = product.name == null ? this.name : product.name;
+        this.description = product.description == null ? this.description : product.description;
+        this.preview = product.preview == null ? this.preview : product.preview;
+    }
 }

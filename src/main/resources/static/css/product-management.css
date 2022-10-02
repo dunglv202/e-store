@@ -1,0 +1,197 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    font-family: "Segoe UI", serif;
+    color: rgba(43, 43, 43, 0.9);
+}
+
+#main-container {
+    padding: 2rem;
+}
+#main-container table {
+    border-spacing: 0 1rem;
+    width: 100%;
+    overflow: scroll;
+}
+#main-container table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+#main-container th:first-child, #main-container td:first-child{
+    border-radius: 4px 0 0 4px;
+}
+#main-container th:last-child, #main-container td:last-child{
+    border-radius: 0 4px 4px 0;
+}
+#main-container thead tr {
+    background: rgb(43, 43, 43, 0.9);
+    backdrop-filter: blur(4px);
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 1px 2px 10px rgb(0,0,0,0.08);
+}
+#main-container tbody tr {
+    box-shadow: 1px 2px 10px rgba(0,0,0,0.05);
+}
+#main-container {
+    margin-top: 1rem;
+}
+#main-container th {
+    padding: 1rem 1.5rem;
+    color: #f1f1f1;
+}
+#main-container td {
+    padding: 0.7rem 1rem;
+    text-align: center;
+}
+#main-container tbody tr {
+    animation: floatUp 0.15s;
+}
+@keyframes floatUp {
+    0% {
+        transform: translateY(30px);
+    }
+}
+.img-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 4px;
+}
+#main-container .img-container {
+    max-height: 135px;
+    width: 170px;
+}
+#main-container .img-container img {
+    width: 100%;
+}
+#main-container .name {
+    font-size: 1.05rem;
+    min-width: 222px;
+}
+.number-selector {
+    border: solid 1px #ebedf0;
+    display: flex;
+    align-content: stretch;
+    justify-content: center;
+    border-radius: 4px;
+}
+.number-selector input {
+    border: none;
+    flex-grow: 1;
+    max-width: 50px;
+    box-sizing: border-box;
+    padding: 0 7px;
+    outline: none;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 0.93rem;
+}
+.number-selector input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.number-selector input[type=number] {
+    -moz-appearance: textfield;
+}
+.btn {
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.number-selector .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+.number-selector .btn:hover {
+    color: rgba(30, 144, 255, 0.9);
+}
+.currency {
+    min-width: 150px;
+    text-align: center;
+}
+.currency::before {
+    content: "$";
+}
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#main-container td.actions .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+#main-container td.actions .btn.edit {
+    color: dodgerblue;
+}
+#main-container td.actions .btn.edit:hover {
+    background: dodgerblue;
+    color: #f1f1f1;
+}
+#main-container td.actions .btn.remove {
+    color: crimson;
+}
+#main-container td.actions .btn.remove:hover {
+    background: crimson;
+    color: #f1f1f1;
+    /*box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.2);*/
+}
+
+#management-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+#management-actions .btn {
+    color: rgba(30, 144, 255, 0.9);
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: rgba(30, 144, 255, 0.10);
+}
+#management-actions .gap {
+    flex-grow: 1;
+}
+#management-actions .btn:hover {
+    background: rgba(30, 144, 255, 0.9);
+    color: #f1f1f1;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    gap: 1rem;
+}
+.pagination .btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1rem;
+    border-radius: 50%;
+    background: rgba(30, 144, 255, 0.10);
+    color: rgba(30, 144, 255, 0.9);
+}
+.pagination .btn * {
+    color: inherit;
+}
+.pagination .btn:hover {
+    background: rgba(30, 144, 255, 0.9);
+    color: #f1f1f1;
+}
+.pagination .btn.prev i {
+    margin-left: -3px;
+}
+.pagination .btn.next i {
+    margin-left: 3px;
+}

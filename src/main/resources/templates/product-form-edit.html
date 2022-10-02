@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/css/product-form.css">
+    <link rel="stylesheet" href="/css/product-form-edit.css">
+
+    <script src="https://kit.fontawesome.com/a46c56187f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav>
+        <a href="/manage/products" class="btn-style-2 link back">
+            Management Page
+        </a>
+    </nav>
+    <form id="product-form" action="" method="POST" enctype="multipart/form-data">
+        <div class="field preview">
+            <div id="preview">
+                <img th:src="|/${product.preview}|">
+            </div>
+        </div>
+        <div class="field">
+            <input type="text" id="name" th:field="*{product.name}" required autofocus>
+            <label for="name">Name</label>
+        </div>
+        <div class="field desc">
+            <textarea type="text" id="description" th:field="*{product.description}"></textarea>
+            <label for="description">Description</label>
+        </div>
+        <div class="field">
+            <input type="number" step="any" min="0" id="price" th:field="*{product.price}" required>
+            <label for="price">Price</label>
+        </div>
+        <div class="field">
+            <input type="number" min="0" id="quantity" th:field="*{product.quantity}" required>
+            <label for="quantity">Quantity</label>
+        </div>
+        <div class="field">
+            <select id="category" th:field="*{product.category.id}">
+                <option th:each = "category : ${categories}" th:value="${category.id}" th:text="${category.name}">Shoes</option>
+            </select>
+            <label for="category">Category</label>
+        </div>
+        <div class="field">
+            <select id="brand" name="brand" th:field="*{product.brand.id}">
+                <option th:each = "brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}">
+                </option>
+            </select>
+            <label for="brand">Brand</label>
+        </div>
+        <div class="field col2span images">
+            <input type="file" multiple="multiple" id="images" style="display: none" name="uploadedImage">
+            <button id="more-image-btn">More Images...</button>
+            <div id="upload-previews">
+
+            </div>
+            <label for="images" id="add-image-btn" class="btn-style-2 plus">Add Images</label>
+        </div>
+
+        <input type="submit" class="col2span" value="Save">
+    </form>
+    <script th:inline="javascript">
+        var productId = [[${product.id}]];
+    </script>
+    <script src="/js/product-form.js"></script>
+    <script type="module" src="/js/product-form-edit.js">
+    </script>
+</body>
+</html>

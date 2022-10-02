@@ -11,4 +11,9 @@ public class CartController {
     public String showCart() {
         return "cart";
     }
+
+    @GetMapping("/checkout")
+    public String showCheckoutPage() {
+        return "checkout";
+    }
 }

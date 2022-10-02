@@ -1,6 +1,6 @@
 const getAllItems = function(page, size, callback) {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `api/v1/carts?page=${page}&size=${size}`);
+    xhr.open("GET", `/api/v1/carts?page=${page}&size=${size}`);
 
     xhr.onreadystatechange = function () {
         if (this.readyState === 4) {

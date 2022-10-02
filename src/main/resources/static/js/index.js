@@ -2,7 +2,7 @@ import cart from '/js/cart.js';
 
 const getProduct = function (page, size, callback) {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `/api/v1/products?page=${page}&size=${size}`);
+    xhr.open("GET", `/api/v1/products?page=${page}&size=${size}&sortedBy=newest`);
 
     xhr.onreadystatechange = function () {
         if (this.readyState === 4) {

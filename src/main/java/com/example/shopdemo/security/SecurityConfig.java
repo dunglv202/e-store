@@ -61,12 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasRole("STOCK_MANAGER")
                 .mvcMatchers(HttpMethod.PUT, "/api/v1/products/**")
                     .hasRole("STOCK_MANAGER")
-                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/**")
-                    .hasRole("STOCK_MANAGER")
+//                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/**")
+//                    .hasRole("STOCK_MANAGER")
                 .mvcMatchers(HttpMethod.POST, "/api/v1/products/*/images/**")
                     .hasAnyRole("STOCK_MANAGER", "SALE_EMPLOYEE")
-                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/*/images/**")
-                    .hasAnyRole("STOCK_MANAGER", "SALE_EMPLOYEE")
+//                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/*/images/**")
+//                    .hasAnyRole("STOCK_MANAGER", "SALE_EMPLOYEE")
 
                 // brands and categories
                 .mvcMatchers(HttpMethod.POST, "/api/v1/brands/**")

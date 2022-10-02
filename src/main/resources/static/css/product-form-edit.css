@@ -1,0 +1,110 @@
+.hidden {
+    display: none;
+}
+
+#upload-previews .img-container {
+    animation: floatUp 0.2s;
+    position: relative;
+}
+#upload-previews .img-container.deletable::after {
+    content: "\f2ed";
+    font-family: "Font Awesome 5 Free";
+    font-size: 2.5rem;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.45);
+    color: #eee;
+    display: none;
+    backdrop-filter: blur(3px);
+}
+#upload-previews .img-container.deletable:hover::after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(30px);
+    }
+}
+
+#product-form {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+}
+.field.preview {
+    grid-row: 2 span;
+}
+.field.desc {
+    align-self: stretch;
+}
+#preview {
+    display: flex;
+    justify-content: center;
+}
+#preview img {
+    max-width: 450px;
+    height: 300px;
+    object-fit: cover;
+}
+#description {
+    flex-grow: 1;
+}
+
+.col2span {
+    grid-column: 2 span;
+}
+.field.images {
+    align-items: center;
+}
+
+#more-image-btn {
+    border: none;
+    background: transparent;
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    color: rgb(43, 43, 43);
+    font-style: italic;
+}
+#more-image-btn:hover {
+    color: dodgerblue;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1000px) {
+    #upload-previews {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    #product-form {
+        grid-template-columns: 1fr;
+    }
+    .field.preview {
+        grid-row: 1 span;
+    }
+    .col2span {
+        grid-column: 1 span;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #upload-previews {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #upload-previews {
+        grid-template-columns: 1fr;
+    }
+    #preview img {
+        height: 250px;
+    }
+}

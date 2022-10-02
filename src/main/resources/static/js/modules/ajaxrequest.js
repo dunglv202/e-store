@@ -12,7 +12,7 @@ const makeRequest = function (method, endpoint, callback) {
                     location.href = "/login";
                     break;
                 default:
-                    alert("Something went wrong, check console for more details");
+                    alert("Couldn't perform action!");
                     console.log(this.response);
             }
         }

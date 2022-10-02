@@ -1,0 +1,146 @@
+* {
+    font-family: "Segoe UI", serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#product-form {
+    align-self: center;
+    display: grid;
+    gap: 1rem;
+    padding: 2rem;
+    width: 900px;
+}
+
+label {
+    display: block;
+    padding: 7px 0;
+    font-weight: 600;
+}
+
+input:not(input[type="radio"]), textarea, select {
+    border: solid 1px rgba(119, 136, 153, 0.5);
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+input:not(input[type="radio"], input[type="submit"]):focus, select:focus, textarea:focus {
+    border-color: transparent;
+    outline: none;
+    box-shadow: 0px 0px 0px 2px dodgerblue, 0px 0px 0px 5px rgba(30, 143, 255, 0.199);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+select {
+    background: transparent;
+}
+
+input[type="submit"], .btn-style-2 {
+    width: 100%;
+    background: rgba(43, 43, 43, 0.9);
+    color: #f1f1f1;
+    text-transform: uppercase;
+    border: none !important;
+    padding: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem !important;
+    font-size: 1rem;
+}
+input[type="submit"]:hover {
+    background: rgba(30, 144, 255, 0.9);
+}
+
+.field {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.field input:focus + label, .field select:focus + label, .field textarea:focus + label {
+    color: dodgerblue;
+}
+
+.btn-style-2 {
+    color: dodgerblue;
+    background-color: rgba(30, 144, 255, 0.15);
+    margin: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.btn-style-2:hover {
+    background-color: rgba(30, 144, 255, 0.3);
+}
+.btn-style-2.link {
+    text-decoration: none;
+}
+.btn-style-2.link:hover {
+    background-color: rgba(30, 144, 255, 0.95);
+    color: #f1f1f1;
+    text-decoration: underline;
+}
+
+#upload-previews {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 1rem 0 0;
+    width: 100%;
+}
+.img-container {
+    border-radius: 4px;
+    overflow: hidden;
+}
+#upload-previews .img-container {
+    height: 160px;
+    box-shadow: 1px 2px 7px rgba(0,0,0,0.07);
+}
+#upload-previews .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+nav {
+    padding: 2rem;
+}
+.link.back::before {
+    content: "\f104";
+    font-family: "Font Awesome 5 Free";
+    padding-right: 0.5rem;
+}
+.plus::after {
+    content: "\f067";
+    padding-left: 0.5rem;
+    font-family: "Font Awesome 5 Free";
+}
+
+@media screen and (max-width: 1000px) {
+    #product-form {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #product-form, nav{
+        padding: 2rem 1rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #product-form, nav {
+        padding: 1.5rem 0.5rem;
+    }
+}
