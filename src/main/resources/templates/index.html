@@ -6,9 +6,37 @@
           content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+
+    <script src="https://kit.fontawesome.com/a46c56187f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="products-container">
+    <div th:replace="/fragments/navigation.html :: nav"></div>
+    <div id="products-container" th:fragment="product-list-grid">
+        <div id="open-filter">
+            <i class="fas fa-filter"></i>
+        </div>
+        <form id="filters" class="hidden" th:object="${specs}">
+            <div class="close-btn">
+                <i class="far fa-times-circle"></i>
+            </div>
+            <input th:field="*{keyword}" type="search" placeholder="Search...">
+            <input th:field="*{minPrice}" type="number" min="0" placeholder="Min Price">
+            <input th:field="*{maxPrice}" type="number" min="0" placeholder="Max Price">
+            <select th:field="*{sortedBy}">
+                <option value="">Sorted By</option>
+                <option value="price_asc">Price Ascending</option>
+                <option value="price_desc">Price Descending</option>
+                <option value="rating_asc">Rating Ascending</option>
+                <option value="rating_desc">Rating Descending</option>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="name_asc">Name A-Z</option>
+                <option value="name_desc">Name Z-A</option>
+            </select>
+
+            <input type="submit" value="Filter">
+        </form>
         <div id="product-list" class="grid-container">
 
         </div>

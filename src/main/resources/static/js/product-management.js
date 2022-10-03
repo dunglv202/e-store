@@ -16,8 +16,8 @@ const createProductEle = function (product) {
                 <img src="/${product.preview}">
             </div>
         </td>
-        <td class="name">${product.name}</td>
-        <td>${product.description}</td>
+        <td class="name"><a href="/products/${product.id}">${product.name}</a></td>
+        <td>${product.description.slice(0,40) + (product.description.length>40 ? '...' : '')}</td>
         <td class="currency">${currencyFormat(product.price)}</td>
         <td>${product.quantity}</td>
         <td>${product.category.name}</td>

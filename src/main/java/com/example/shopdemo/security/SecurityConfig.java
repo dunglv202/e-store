@@ -45,11 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 // cart
-                .mvcMatchers("/api/v1/carts/**")
+                .mvcMatchers("/api/v1/carts/**", "/cart/**")
                     .hasRole("CUSTOMER")
 
                 // order
-                .mvcMatchers("/api/v1/orders/**")
+                .mvcMatchers("/api/v1/orders/**", "/order/**")
                     .hasRole("CUSTOMER")
 
                 // review
@@ -61,12 +61,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasRole("STOCK_MANAGER")
                 .mvcMatchers(HttpMethod.PUT, "/api/v1/products/**")
                     .hasRole("STOCK_MANAGER")
-//                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/**")
-//                    .hasRole("STOCK_MANAGER")
+                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/**")
+                    .hasRole("STOCK_MANAGER")
                 .mvcMatchers(HttpMethod.POST, "/api/v1/products/*/images/**")
                     .hasAnyRole("STOCK_MANAGER", "SALE_EMPLOYEE")
-//                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/*/images/**")
-//                    .hasAnyRole("STOCK_MANAGER", "SALE_EMPLOYEE")
+                .mvcMatchers(HttpMethod.DELETE, "/api/v1/products/*/images/**")
+                    .hasAnyRole("STOCK_MANAGER", "SALE_EMPLOYEE")
+                .mvcMatchers("/manage/products/**")
+                    .hasRole("STOCK_MANAGER")
 
                 // brands and categories
                 .mvcMatchers(HttpMethod.POST, "/api/v1/brands/**")

@@ -1,30 +1,18 @@
 import cart from '/js/cart.js';
+import ajaxRequest from "/js/modules/ajaxrequest.js";
 
-const getProduct = function (page, size, callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", `/api/v1/products?page=${page}&size=${size}&sortedBy=newest`);
-
-    xhr.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            if (this.status === 200) {
-                callback(JSON.parse(this.response));
-            } else {
-                console.log(this.response)
-            }
-        }
-    }
-
-    xhr.send();
-}
+let curProductPage = 0;
+const PRODUCT_PAGE_SIZE = 12;
+let paramSequence = "";
 
 const createProductEle = function (product) {
     let ele = document.createElement("div");
     let template = `
-        <a href="#">
+        <a href="/products/${product.id}">
             <div class="product">
                 <div class="preview">
                     <div class="img-container">
-                        <img src="${product.preview}">
+                        <img src="/${product.preview}">
                     </div>
                     <div class="actions">
                         <button>Quick View</button>
@@ -57,6 +45,7 @@ const createProductEle = function (product) {
 }
 
 const renderProduct = function (products) {
+    if (products === null || products.length === 0) return;
     const rootEle = document.getElementById("product-list");
 
     for (let product of products) {
@@ -64,16 +53,56 @@ const renderProduct = function (products) {
     }
 }
 
-let curProductPage = 0;
-const PRODUCT_PAGE_SIZE = 12;
+const initCriteria = function () {
+    const filterForm = document.getElementById("filters");
+
+    // make request params
+    let formData = new FormData(filterForm);
+    paramSequence = "";
+    if (formData.get("keyword"))
+        paramSequence += "search&";
+    for (let param of formData.entries()) {
+        if (param[1])
+            paramSequence += `${param[0]}=${param[1]}&`;
+    }
+
+    paramSequence = paramSequence.slice(0, -1);
+}
+
 const loadProduct = function () {
-    getProduct(curProductPage, PRODUCT_PAGE_SIZE, renderProduct);
-    curProductPage++;
+    // send get and render
+    ajaxRequest.get("/api/v1/products", `${paramSequence}&page=${curProductPage}&size=${PRODUCT_PAGE_SIZE}`, function (products) {
+        curProductPage++;
+        renderProduct(products);
+    });
 }
 
 window.onload = function() {
+    initCriteria();
+
     loadProduct();
 
+    // load product when click btn
     const loadProductBtn = document.getElementById("load-product-btn");
     loadProductBtn.addEventListener("click", loadProduct);
+
+    // open filter form
+    const filterForm = document.getElementById("filters");
+    document.getElementById("open-filter").addEventListener("click", function () {
+        filterForm.classList.remove("hidden");
+    })
+
+    // close dialog...
+    let closeBtns = document.getElementsByClassName("close-btn");
+    for (let btn of closeBtns)
+        btn.addEventListener("click", function() {this.parentElement.classList.add("hidden")});
+
+    // do filter
+    filterForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        initCriteria();
+        let queryIndex = location.href.lastIndexOf("?");
+        if (queryIndex === -1) queryIndex = location.href.length;
+        location.href = location.href.slice(0, queryIndex) + "?" + paramSequence;
+    });
 }

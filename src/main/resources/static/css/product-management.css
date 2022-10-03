@@ -74,6 +74,14 @@ html {
     font-size: 1.05rem;
     min-width: 222px;
 }
+#main-container .name a {
+    color: inherit;
+    text-decoration: none;
+}
+#main-container .name a:hover {
+    color: dodgerblue;
+    text-decoration: underline;
+}
 .number-selector {
     border: solid 1px #ebedf0;
     display: flex;
@@ -194,4 +202,8 @@ input::-webkit-inner-spin-button {
 }
 .pagination .btn.next i {
     margin-left: 3px;
+}
+
+.fas {
+    color: inherit;
 }

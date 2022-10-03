@@ -81,6 +81,10 @@ public class Review {
         this.orderItem = orderItem;
     }
 
+    public String getUser() {
+        return orderItem.getOrder().getUser().getUsername();
+    }
+
     public void merge(Review review) {
         this.rating = review.rating == null ? this.rating : review.rating;
         this.comment = review.comment == null ? this.comment : review.comment;

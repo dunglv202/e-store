@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/css/navigation.css">
+
+    <script src="https://kit.fontawesome.com/a46c56187f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav th:fragment="nav">
+        <div class="nav-left">
+            <a href="/" class="menu-item">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="#" class="menu-item" sec:authorize="hasAnyRole('MANAGER', 'STAFF_MANAGER')">
+                Manage Employees
+            </a>
+            <a href="/manage/products" class="menu-item" sec:authorize="hasRole('STOCK_MANAGER')">
+                Manage Products
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="/cart" class="menu-item tooltip" sec:authorize="hasRole('CUSTOMER')">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="tooltiptext">
+                    Shopping Cart
+                </span>
+            </a>
+            <a href="/login" class="menu-item" sec:authorize="!isAuthenticated()">
+                Login
+            </a>
+            <div class="menu-item has-submenu" sec:authorize="isAuthenticated()">
+                <i class="fas fa-user"></i>
+                <div id="user-submenu" class="submenu">
+                    <div class="submenu-body">
+                        <a href="#">Edit Profile</a>
+                        <a href="/order/history" sec:authorize="hasRole('CUSTOMER')">Order History</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

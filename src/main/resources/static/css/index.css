@@ -132,6 +132,59 @@
     box-shadow: 0 0 0 2px rgba(30, 144, 255, 0.80), 0 0 0 5px rgba(30, 144, 255, 0.20);
 }
 
+input:not(input[type="radio"]), textarea, select {
+    padding: 0.7rem 1rem;
+    border: solid 1px rgba(119, 136, 153, 0.5);
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+input:not(input[type="radio"], input[type="submit"]):focus, select:focus, textarea:focus {
+    border-color: transparent;
+    outline: none;
+    box-shadow: 0px 0px 0px 2px dodgerblue, 0px 0px 0px 5px rgba(30, 143, 255, 0.199);
+}
+
+select {
+    background: transparent;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background: rgba(43, 43, 43, 0.9);
+    color: #f1f1f1;
+    text-transform: uppercase;
+    border: none !important;
+    padding: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem !important;
+    font-size: 1rem;
+}
+input[type="submit"]:hover {
+    background: rgba(30, 144, 255, 0.9);
+}
+#filters {
+    display: grid;
+    grid-template-columns: 500px;
+    gap: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    align-content: center;
+    justify-content: center;
+    z-index: 1000;
+}
+#filters input:not(input[type="submit"]) {
+    background: transparent;
+}
+
 @media screen and (max-width: 1250px) {
     #products-container {
         padding: 1rem 2rem;
@@ -170,4 +223,37 @@
     .product .img-container {
         max-height: 300px;
     }
+}
+
+.hidden {
+    display: none !important;
+}
+.close-btn {
+    font-size: 1.8em;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.close-btn:hover * {
+    cursor: pointer;
+    color: crimson;
+}
+
+#open-filter {
+    color: rgba(30, 144, 255, 0.95);
+    background-color: rgba(30, 144, 255, 0.15);
+    border-radius: 4px;
+    padding: 0.8rem 1.1rem;
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    z-index: 900;
+    cursor: pointer;
+}
+#open-filter i {
+    color: inherit;
+}
+#open-filter:hover {
+    background-color: rgba(30, 144, 255, 0.9);
+    color: #f1f1f1;
 }

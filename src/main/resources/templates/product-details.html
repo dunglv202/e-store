@@ -6,28 +6,41 @@
           content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/css/product-form.css">
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/product-details.css">
 
     <script src="https://kit.fontawesome.com/a46c56187f.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <div th:replace="/fragments/navigation.html :: nav"></div>
     <div id="main-container">
-        <div id="product-container">
+        <div id="product-container" th:object="${product}">
             <div id="images">
-
+                <div id="preview">
+                    <img id="preview-img" th:src="|/*{preview}|">
+                </div>
+                <div id="all-images">
+                    <div class="img-container active">
+                        <img th:src="|/*{preview}|">
+                    </div>
+                    <div class="img-container" th:each="image : ${images}">
+                        <img th:src="|/${image.path}|">
+                    </div>
+                </div>
             </div>
             <div id="basic-info">
-                <h2>Name</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias deleniti error, laborum nostrum possimus ut. Adipisci excepturi, veritatis. Dignissimos, harum.</p>
+                <h2 th:text="*{name}">Name</h2>
+                <p th:text="*{description}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias deleniti error, laborum nostrum possimus ut. Adipisci excepturi, veritatis. Dignissimos, harum.</p>
+                <div class="currency" th:text="*{price}"></div>
                 <div id="product-actions">
                     <div class="number-selector">
-                        <div class="change-value-btn decrease">-</div>
-                        <input type="number" min="0" value="1">
-                        <div class="change-value-btn increase">+</div>
+                        <button class="change-value-btn decrease">-</button>
+                        <input id="quantity" type="number" min="1" value="1">
+                        <button class="change-value-btn increase">+</button>
                     </div>
-                    <div>
-                        <button id="add-cur-to-cart-btn">
+                    <div class="actions-container">
+                        <button id="add-to-cart-btn">
                             Add To Cart
                         </button>
                     </div>
@@ -37,13 +50,26 @@
 
         <div id="more-details">
             <div class="tab-selector">
-                <div class="tab">Details</div>
-                <div class="tab">Reviews</div>
+                <div class="tab-details tab">Details</div>
+                <div class="tab-reviews tab active">Reviews</div>
             </div>
             <div class="tab-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quidem.
+                <div class="tab-details container">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur consectetur dicta esse ex incidunt magnam maiores nemo possimus voluptas!
+                </div>
+                <div class="tab-details container tab-reviews active">
+                    <ul id="review-container">
+
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+
+
+    <script th:inline="javascript">
+        var productId = [[${product.id}]];
+    </script>
+    <script type="module" src="/js/product-details.js"></script>
 </body>
 </html>

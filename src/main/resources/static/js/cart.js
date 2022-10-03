@@ -23,7 +23,7 @@ const getAllItems = function(page, size, callback) {
 
 const addToCart = function(item, callback) {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", `api/v1/carts/`);
+    xhr.open("POST", `/api/v1/carts/`);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
