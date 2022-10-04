@@ -4,11 +4,13 @@ import com.example.shopdemo.entity.*;
 import com.example.shopdemo.enumtype.OrderStatus;
 import com.example.shopdemo.exception.NotFoundException;
 import com.example.shopdemo.pojo.Mail;
+import com.example.shopdemo.pojo.OrderSpecs;
 import com.example.shopdemo.repository.CartItemRepository;
 import com.example.shopdemo.repository.OrderRepository;
 import com.example.shopdemo.service.MailService;
 import com.example.shopdemo.service.OrderService;
 import com.example.shopdemo.service.ProductService;
+import com.example.shopdemo.spec.OrderSpecifications;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import org.thymeleaf.context.Context;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
+import static com.example.shopdemo.spec.OrderSpecifications.matchesSpec;
 
 @Service
 @Transactional
@@ -43,8 +47,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<Order> getAllOrders(User user, Pageable pagination) {
-        return orderRepo.findAllByUser(user, pagination);
+    public Page<Order> getAllOrders(User user, OrderSpecs specs, Pageable pagination) {
+        return orderRepo.findAll(OrderSpecifications.ofUser(user).and(matchesSpec(specs)), pagination);
     }
 
     @Override

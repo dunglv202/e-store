@@ -1,6 +1,7 @@
 package com.example.shopdemo.rest;
 
 import com.example.shopdemo.entity.Order;
+import com.example.shopdemo.pojo.OrderSpecs;
 import com.example.shopdemo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -24,8 +25,9 @@ public class OrderRestController {
     @GetMapping("")
     public List<Order> getAllOrders(@RequestParam Integer page,
                                     @RequestParam Integer size,
+                                    OrderSpecs specs,
                                     Authentication auth) {
-        return orderService.getAllOrders(getUser(auth), PageRequest.of(page, size)).toList();
+        return orderService.getAllOrders(getUser(auth), specs , PageRequest.of(page, size)).toList();
     }
 
     @GetMapping("/{orderId}")

@@ -95,7 +95,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
-//                .httpBasic()
+                .and()
+                .httpBasic()
 
                 .and()
                 .exceptionHandling()

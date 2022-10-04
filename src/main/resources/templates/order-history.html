@@ -5,8 +5,45 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/order-history.css">
+
+    <script src="https://kit.fontawesome.com/a46c56187f.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div th:replace="/fragments/navigation.html :: nav"></div>
 
+    <div id="status-filter" class="tab-selector">
+        <div class="tab active" th-status="ALL">
+            ALL
+        </div>
+        <div class="tab" th-status="PENDING">
+            PENDING
+        </div>
+        <div class="tab" th-status="PREPARING">
+            PREPARING
+        </div>
+        <div class="tab" th-status="DELIVERING">
+            DELIVERING
+        </div>
+        <div class="tab" th-status="RECEIVED">
+            RECEIVED
+        </div>
+        <div class="tab" th-status="REFUSED">
+            REFUSED
+        </div>
+    </div>
+    <ul id="order-list">
+
+    </ul>
+    <div class="actions-container">
+        <button id="more-order-btn" class="btn">
+            More
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <script type="module" src="/js/order-history.js"></script>
 </body>
 </html>
