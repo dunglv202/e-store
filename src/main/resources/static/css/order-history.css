@@ -93,7 +93,7 @@
     text-transform: uppercase;
     order: 1;
 }
-.order .status.pending, .order.status.preparing {
+.order .status.pending, .order.status.preparing, .order.status.delivering {
     color: orange;
 }
 .order .status.received {

@@ -49,7 +49,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasRole("CUSTOMER")
 
                 // order
-                .mvcMatchers("/api/v1/orders/**", "/order/**")
+                .mvcMatchers(HttpMethod.GET, "/api/v1/orders/**")
+                    .hasAnyRole("CUSTOMER", "SALES_EMPLOYEE")
+                .mvcMatchers(HttpMethod.POST, "/api/v1/orders/**")
+                    .hasRole("CUSTOMER")
+                .mvcMatchers(HttpMethod.PUT, "/api/v1/orders/**")
+                    .hasAnyRole("SALES_EMPLOYEE")
+                .mvcMatchers(HttpMethod.DELETE, "/api/v1/orders/**")
+                    .hasAnyRole("CUSTOMER")
+                .mvcMatchers("/manage/orders/**")
+                    .hasRole("SALES_EMPLOYEE")
+                .mvcMatchers("/order/**")
                     .hasRole("CUSTOMER")
 
                 // review
@@ -95,8 +105,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
-                .and()
-                .httpBasic()
+//                .and()
+//                .httpBasic()
 
                 .and()
                 .exceptionHandling()

@@ -1,5 +1,6 @@
 package com.example.shopdemo.handler;
 
+import com.example.shopdemo.exception.NotFoundException;
 import com.example.shopdemo.exception.UnauthenticatedException;
 import com.example.shopdemo.pojo.RestResponse;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,14 @@ public class RestExceptionHandler {
                 .build()
                 .status(HttpStatus.BAD_REQUEST)
                 .messages(e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList()));
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public RestResponse notFound(NotFoundException e) {
+        return RestResponse.build()
+                .status(HttpStatus.NOT_FOUND)
+                .messages(e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

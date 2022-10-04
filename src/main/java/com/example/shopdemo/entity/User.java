@@ -118,4 +118,8 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public boolean hasAuthority(String auth) {
+        return this.authorities.stream().anyMatch((a) -> a.getName().equals(auth));
+    }
 }

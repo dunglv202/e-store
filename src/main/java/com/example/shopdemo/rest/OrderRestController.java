@@ -1,6 +1,8 @@
 package com.example.shopdemo.rest;
 
 import com.example.shopdemo.entity.Order;
+import com.example.shopdemo.entity.User;
+import com.example.shopdemo.enumtype.OrderStatus;
 import com.example.shopdemo.pojo.OrderSpecs;
 import com.example.shopdemo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,12 @@ public class OrderRestController {
     public Order makeOrder(@RequestBody Order order,
                            Authentication auth) {
         return orderService.makeOrder(order, getUser(auth));
+    }
+
+    @PutMapping("/{orderId}")
+    public Order updateOrder(@PathVariable Integer orderId,
+                             @RequestBody OrderStatus status) {
+        return orderService.updateStatus(orderId, status);
     }
 
     @DeleteMapping("/{orderId}")

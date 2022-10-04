@@ -12,17 +12,36 @@
     <script src="https://kit.fontawesome.com/a46c56187f.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:replace="/fragments/navigation.html :: nav"></div>
-<ul id="order-list">
+    <div th:replace="/fragments/navigation.html :: nav"></div>
 
-</ul>
-<div class="actions-container">
-    <button id="more-order-btn" class="btn">
-        More
-        <i class="fas fa-chevron-down"></i>
-    </button>
-</div>
+    <div id="filter-container">
+        <select id="status-filter">
+            <option value="ALL">
+                ALL
+            </option>
+            <option th:each = "status : ${statusList}" th:value="${status}" th:text="${status}">
 
-<script type="module" src="/js/order-management.js"></script>
+            </option>
+        </select>
+        <form id="search-form">
+            <input type="number" id="search" placeholder="Search by order's id" required>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    <ul id="order-list">
+
+    </ul>
+    <div class="actions-container">
+        <button id="more-order-btn" class="btn">
+            More
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <script th:inline="javascript">
+        var orderStatusList = [[${statusList}]];
+    </script>
+    <script type="module" src="/js/order-management.js"></script>
 </body>
 </html>

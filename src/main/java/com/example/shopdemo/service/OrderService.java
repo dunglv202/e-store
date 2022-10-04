@@ -2,6 +2,7 @@ package com.example.shopdemo.service;
 
 import com.example.shopdemo.entity.Order;
 import com.example.shopdemo.entity.User;
+import com.example.shopdemo.enumtype.OrderStatus;
 import com.example.shopdemo.pojo.OrderSpecs;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,7 @@ public interface OrderService {
 
     Order makeOrder(@Valid Order order, User user);
 
-    Order updateStatus();
+    Order updateStatus(Integer orderId, OrderStatus status);
 
     Order cancelOrder(Integer id, User user);
 }

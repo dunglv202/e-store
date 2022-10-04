@@ -23,6 +23,9 @@
             <a href="/manage/products" class="menu-item" sec:authorize="hasRole('STOCK_MANAGER')">
                 Manage Products
             </a>
+            <a href="/manage/orders" class="menu-item" sec:authorize="hasRole('SALES_EMPLOYEE')">
+                Manage Orders
+            </a>
         </div>
         <div class="nav-right">
             <a href="/cart" class="menu-item tooltip" sec:authorize="hasRole('CUSTOMER')">

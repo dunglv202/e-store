@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.thymeleaf.TemplateEngine;
@@ -48,13 +49,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<Order> getAllOrders(User user, OrderSpecs specs, Pageable pagination) {
-        return orderRepo.findAll(OrderSpecifications.ofUser(user).and(matchesSpec(specs)), pagination);
+        if (user.hasAuthority("ROLE_CUSTOMER")) {
+            return orderRepo.findAll(OrderSpecifications.ofUser(user).and(matchesSpec(specs)), pagination);
+        } else {
+            return orderRepo.findAll(OrderSpecifications.matchesSpec(specs), pagination);
+        }
     }
 
     @Override
     public Order getOrder(Integer id, User user) {
         Order found = orderRepo.findById(id).orElse(null);
-        if (found==null || !found.getUser().equals(user))
+        if (found==null || (user.hasAuthority("ROLE_CUSTOMER") && !found.getUser().equals(user)))
             throw new NotFoundException("Order does not exist - ID: " + id);
 
         return found;
@@ -97,8 +102,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateStatus() {
-        return null;
+    public Order updateStatus(Integer orderId, OrderStatus status) {
+        // find order
+        Order found = orderRepo.findById(orderId).orElseThrow(() -> new NotFoundException("Order not found - ID: " + orderId));
+
+        // check valid status
+        if (!status.isNextOf(found.getStatus()))
+            throw new RuntimeException("Invalid Status");
+        else
+            found.setStatus(status);
+
+        // update
+        return orderRepo.save(found);
     }
 
     @Override

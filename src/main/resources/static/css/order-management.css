@@ -1,0 +1,154 @@
+* {
+    font-family: "Segoe UI", serif;
+}
+
+#order-list {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+    max-width: 800px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+#order-list a {
+    color: initial;
+    text-decoration: none;
+}
+.order {
+    padding: 1.5rem;
+    background: #f1f1f1;
+    border-radius: 4px;
+    display: grid;
+    justify-content: space-between;
+    gap: 0 1rem;
+    grid-template-columns: auto auto;
+    box-sizing: border-box;
+}
+.order:hover {
+    background: rgba(30, 144, 255, 0.15);
+}
+.order .name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+.order .name:hover {
+    color: dodgerblue;
+}
+.order .name:hover::after {
+    content: "\f0c1";
+    font-family: "Font Awesome 5 Free";
+    font-size: 0.92em;
+    margin-left: 3px;
+    color: inherit;
+}
+.order .date {
+    font-style: italic;
+    color: rgba(43, 43, 43, 0.6);
+    margin: 0.5rem 0;
+    order: 2;
+}
+.order .price {
+    font-weight: 600;
+    font-size: 1.05rem;
+    order: 3;
+}
+.currency::before {
+    content: "$ ";
+}
+.order .status {
+    grid-row: 3 span;
+    font-weight: 600;
+    align-self: center;
+    text-transform: uppercase;
+    order: 1;
+}
+.order .status.pending, .order.status.preparing, .order.status.delivering {
+    color: orange;
+}
+.order .status.received {
+    color: dodgerblue;
+}
+.order .status.refused {
+    color: crimson;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: center;
+}
+.btn {
+    padding: 0.8rem 1.8rem;
+    color: dodgerblue;
+    background-color: rgba(30, 144, 255, 0.15);
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.btn:hover {
+    background: rgba(30, 144, 255, 0.95);
+    color: #f1f1f1;
+}
+#more-order-btn {
+    margin-bottom: 2rem;
+}
+
+.fas {
+    color: inherit;
+}
+
+#filter-container {
+    padding: 0 2rem;
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+}
+
+select, #search-form input {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+}
+#status-filter {
+    background: rgba(30, 144, 255, 0.15);
+    color: rgba(30, 144, 255, 0.95);
+}
+.order select {
+    background: rgba(43, 43, 43, 0.9);
+    color: #f1f1f1;
+    padding: 0.6rem 1rem;
+}
+option {
+    color: rgb(43, 43, 43);
+    background: #fff;
+}
+select.updated {
+    background-color: rgba(30, 144, 255, 0.9);
+}
+#search {
+    box-shadow: 1px 2px 7px rgba(0,0,0,0.07);
+}
+#search-form input[type="submit"] {
+    background: #f1f1f1;
+}
+#search-form input[type="submit"]:hover {
+    cursor: pointer;
+    color: dodgerblue;
+    background-color: rgba(30, 144, 255, 0.15);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
