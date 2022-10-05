@@ -1,6 +1,7 @@
 package com.example.shopdemo.enumtype;
 
 public enum OrderOrderingStrategy {
+    NO_ORDER (false),
     BY_NEWEST (false),
     BY_OLDEST (true);
 

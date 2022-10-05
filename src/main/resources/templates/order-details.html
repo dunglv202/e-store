@@ -27,11 +27,11 @@
                     <label>Phone Number</label>
                 </div>
                 <div id="delivery-location-field" class="field">
-                    <input type="text" id="delivery-location"  th:field="*{recipient.address}" disabled>
+                    <input type="text" id="delivery-location" th:field="*{recipient.address}" disabled>
                     <label>Delivery Location</label>
                 </div>
                 <div id="order-note-field" class="field">
-                    <textarea id="order-note" th:field="*{notes}"></textarea>
+                    <textarea id="order-note" th:field="*{notes}" disabled></textarea>
                     <label>Order Note</label>
                 </div>
             </div>

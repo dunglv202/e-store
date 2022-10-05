@@ -33,7 +33,7 @@ const createOrderEle = function (order) {
     }
 
     ctn.innerHTML = `
-        <a href="/manage/orders/${order.id}"><h2 class="name">
+        <a href="/manage/orders/${order.id}" target="_blank"><h2 class="name">
             ${products}
         </h2></a>
         <div class="date">
@@ -77,6 +77,10 @@ const loadOrders = function () {
     const status = document.getElementById("status-filter");
     let params = status.value;
     if (params !== "ALL") params = `status=${params}`;
+
+    const sortedBy = document.getElementById("sortedBy");
+    params += `&sortedBy=${sortedBy.value}`;
+
     params += `&page=${curOrderPage}&size=${ORDER_PER_LOAD}`;
 
     getOrders(curOrderPage, ORDER_PER_LOAD, params, (orders) => {
@@ -91,15 +95,20 @@ const findOrder = function () {
     ajaxRequest.get(`/api/v1/orders/${orderId}`, "", (order) => {renderOrders([order])});
 }
 
+const reloadOrderList = function () {
+    document.getElementById("order-list").innerHTML = "";
+    curOrderPage = 0;
+    loadOrders();
+}
+
 window.onload = function () {
     loadOrders();
 
     const statusFilter = document.getElementById("status-filter");
-    statusFilter.addEventListener("change", () => {
-        document.getElementById("order-list").innerHTML = "";
-        curOrderPage = 0;
-        loadOrders();
-    });
+    statusFilter.addEventListener("change", reloadOrderList);
+
+    const orderingStrategy = document.getElementById("sortedBy");
+    orderingStrategy.addEventListener("change", reloadOrderList);
 
     const searchForm = document.getElementById("search-form");
     searchForm.addEventListener("submit", function (e) {

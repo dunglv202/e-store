@@ -10,16 +10,16 @@ const createOrderEle = function (order) {
     let ctn = document.createElement("a");
     ctn.href = `/order/history/${order.id}`;
 
-    let products = "";
+    let products = `#${order.id}: `;
     let isCompleted = true;
     for (let item of order.items){
         products += item.product.name + ", ";
-        if (products.length >= 72) {
+        if (products.length >= 63) {
             isCompleted = false;
             break;
         }
     }
-    products = products.slice(0, 70);
+    products = products.slice(0, 60);
     if (!isCompleted) products += "...";
 
     ctn.innerHTML = `

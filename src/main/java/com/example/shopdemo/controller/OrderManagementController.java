@@ -1,6 +1,7 @@
 package com.example.shopdemo.controller;
 
 import com.example.shopdemo.entity.Order;
+import com.example.shopdemo.enumtype.OrderOrderingStrategy;
 import com.example.shopdemo.enumtype.OrderStatus;
 import com.example.shopdemo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class OrderManagementController {
     @GetMapping("")
     public String showAllOrders(Model model) {
         model.addAttribute("statusList", OrderStatus.values());
+        model.addAttribute("orderStrategies", OrderOrderingStrategy.values());
         return "order-management";
     }
 

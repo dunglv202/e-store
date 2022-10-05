@@ -23,6 +23,11 @@
 
             </option>
         </select>
+        <select id="sortedBy">
+            <option th:each = "orderStrategy : ${orderStrategies}" th:value="${orderStrategy}" th:text="${orderStrategy}">
+
+            </option>
+        </select>
         <form id="search-form">
             <input type="number" id="search" placeholder="Search by order's id" required>
             <input type="submit" value="Search">
