@@ -30,6 +30,4 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
 /src/main/webapp/images/**
-/src/main/webapp/**
