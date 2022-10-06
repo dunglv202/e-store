@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,20 +10,20 @@
 <body>
     <div id="container">
         <div id="messages">
-            <ul class="message success" th:if="${param.success}">
+            <ul class="message success">
                 Successfully registered. <a href="/login">Login</a>.
             </ul>
-            <ul class="message error" th:if="${messages}">
-                <li th:each="message : ${messages}" th:text="${message}"></li>
+            <ul class="message error">
+
             </ul>
         </div>
-        <form id="registration-form" action="/register" method="POST" th:object="${user}">
+        <form id="registration-form">
             <div class="field username">
-                <input type="text" id="username" required autofocus th:field="*{username}">
+                <input type="text" id="username" required autofocus name="username">
                 <label for="username">Username</label>
             </div>
             <div class="field">
-                <input type="password" id="password" required th:field="*{password}">
+                <input type="password" id="password" required name="password">
                 <label for="password">Password</label>
             </div>
             <div class="field">
@@ -31,21 +31,21 @@
                 <label for="re-password">Re-Password</label>
             </div>
             <div class="field">
-                <input type="text" id="first-name" th:field="*{details.firstName}">
+                <input type="text" id="first-name" name="firstName">
                 <label for="first-name">First Name</label>
             </div>
             <div class="field">
-                <input type="text" id="last-name" required th:field="*{details.lastName}">
+                <input type="text" id="last-name" required name="lastName">
                 <label for="last-name">Last Name</label>
             </div>
             <div class="field email">
-                <input type="email" id="email" required th:field="*{details.email}">
+                <input type="email" id="email" required name="email">
                 <label for="email">Email</label>
             </div>
-            <div id="roles" class="field" style="display: none">
-                <label class="role">
-                    <input type="checkbox" name="roles" value="1">
-                    Manager
+            <div id="roles" class="field" th:if="${rolesManaged}">
+                <label class="role" th:each="role : ${rolesManaged}">
+                    <input type="checkbox" name="authority" th:value="${role.name}">
+                    <th:block th:text="${role.name}"></th:block>
                 </label>
                 <label>Roles</label>
             </div>
@@ -58,19 +58,68 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import ajaxRequest from "/js/modules/ajaxrequest.js";
+
+        const createUserObjectFrom = function (form) {
+            let data = new FormData(form);
+            let user = {
+                "username": data.get("username"),
+                "password": data.get("password"),
+                "details": {
+                    "firstName": data.get("firstName"),
+                    "lastName": data.get("lastName"),
+                    "email": data.get("email"),
+                },
+                "authorities": []
+            };
+
+            let authorityEles = document.querySelectorAll("input[name='authority']:checked");
+            for (let authEle of authorityEles) {
+                user.authorities.push({
+                    "name": authEle.value
+                });
+            }
+
+            return user;
+        }
+
         window.onload = function() {
-            document.getElementById("registration-form").onsubmit = function(e) {
+            let form = document.getElementById("registration-form");
+            form.onsubmit = function(e) {
                 e.preventDefault();
+
+                // check password match
                 let passwordEle = document.getElementById("password");
-                let rePasswordEle =document.getElementById("re-password").value
+                let rePasswordEle =document.getElementById("re-password");
                 if (passwordEle.value !== rePasswordEle.value) {
-                    this.submit();
-                } else {
                     passwordEle.value = "";
                     rePasswordEle.value = "";
                     alert("Password and Re-Password don't match");
+                    return;
                 }
+
+                // create user object
+                let user = createUserObjectFrom(this);
+
+                // send request for registering
+                ajaxRequest.doPost(`/api/v1/users`, user, (success, res) => {
+                    const successMessageArea = document.querySelector("#messages .success");
+                    const failMessageArea = document.querySelector("#messages .error");
+
+                    if (success) {
+                        successMessageArea.style.display = "block";
+                        failMessageArea.style.display = "none";
+                        form.reset();
+                        window.scrollTo(0,0);
+                    } else {
+                        failMessageArea.style.display = "block";
+                        failMessageArea.innerHTML = "";
+                        for (let msg of res.messages) {
+                            failMessageArea.innerHTML += `<li>${msg}</li>`;
+                        }
+                    }
+                });
             }
         }
     </script>

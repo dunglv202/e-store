@@ -1,0 +1,115 @@
+* {
+    font-family: "Segoe UI", serif;
+}
+
+a {
+    color: initial;
+    text-decoration: none;
+}
+
+body {
+    padding: 2rem;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+}
+.btn-style-2 {
+    padding: 0.8rem 1.5rem;
+    background-color: rgba(30, 144, 255, 0.15);
+    color: dodgerblue;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 4px;
+}
+.btn-style-2:hover {
+    background-color: rgba(30, 144, 255, 0.90);
+    color: #fff;
+}
+
+#filters {
+    margin: 2rem 0;
+}
+#role-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+#emp-list-container {
+    width: 100%;
+    overflow: auto;
+    max-height: 600px;
+}
+#emp-list-container table {
+    border-spacing: 0;
+    min-width: 100%;
+}
+#emp-list-container thead {
+    position: sticky;
+    top: 0;
+}
+#emp-list-container thead tr {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+#emp-list-container thead th {
+    text-align: left;
+    background-color: rgba(43, 43, 43, 0.93);
+    backdrop-filter: blur(3px);
+    padding: 1rem;
+    white-space: nowrap;
+}
+#emp-list-container th:first-child, #emp-list-container td:first-child {
+    border-radius: 4px 0 0 4px;
+}
+#emp-list-container th:last-child, #emp-list-container td:last-child {
+    border-radius: 0 4px 4px 0;
+}
+#emp-list-container tbody tr:nth-child(2n) td {
+    background-color: #f3f3f3;
+}
+#emp-list-container td {
+    padding: 0.7rem 1rem;
+}
+#emp-list-container td.authorities {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+input[type=checkbox] + span {
+    white-space: nowrap;
+}
+input[type=checkbox] + span::before {
+    content: "\f0c8";
+    font-family: "Font Awesome 5 Free";
+    font-size: 1.2rem;
+    color: inherit;
+    display: inline-block;
+    color: rgba(43, 43, 43, 0.8);
+    margin-right: 7px;
+}
+input[type=checkbox]:checked + span::before {
+    content: "\f14a";
+    color: rgba(30, 144, 255, 0.95);
+    font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        padding: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    nav {
+        flex-direction: column;
+    }
+}

@@ -3,6 +3,7 @@ package com.example.shopdemo.controller;
 import com.example.shopdemo.entity.User;
 import com.example.shopdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
+
+import static com.example.shopdemo.util.AuthenticationUtils.getUser;
 
 @Controller
 public class UserController {
@@ -28,23 +31,21 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
+    public String showRegistrationForm() {
         return "register";
     }
 
     @PostMapping("/register")
     public String doRegister(@ModelAttribute("user") User user,
-                             Model model) {
-        try {
-            userService.addUser(user);
-        } catch (ConstraintViolationException e) {
-            model.addAttribute("messages", e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet()));
-            return "register";
-        } catch (Exception e) {
-            model.addAttribute("messages", e.getMessage());
-            return "register";
-        }
+                             Authentication auth) {
+        user.setAuthorities(null);
+        userService.addUser(user, auth);
         return "redirect:/register?success";
+    }
+
+    @PostMapping("/account/delete")
+    public String deleteAccount(Authentication auth) {
+        userService.deleteUser(getUser(auth).getId(), auth);
+        return "redirect:/logout";
     }
 }

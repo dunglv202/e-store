@@ -17,7 +17,7 @@
             <a href="/" class="menu-item">
                 <i class="fas fa-home"></i>
             </a>
-            <a href="#" class="menu-item" sec:authorize="hasAnyRole('MANAGER', 'STAFF_MANAGER')">
+            <a href="/manage/employees" class="menu-item" sec:authorize="hasAnyRole('MANAGER', 'STAFF_MANAGER')">
                 Manage Employees
             </a>
             <a href="/manage/products" class="menu-item" sec:authorize="hasRole('STOCK_MANAGER')">

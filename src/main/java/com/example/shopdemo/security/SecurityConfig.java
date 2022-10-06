@@ -94,6 +94,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.DELETE, "/api/v1/categories/**")
                     .hasRole("STOCK_MANAGER")
 
+                // employees management
+                .mvcMatchers("/manage/employees")
+                    .hasAnyRole("MANAGER", "STOCK_MANAGER", "STAFF_MANAGER")
+
                 .anyRequest()
                     .permitAll()
 
@@ -105,8 +109,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .clearAuthentication(true)
                     .invalidateHttpSession(true)
-//                .and()
-//                .httpBasic()
+                .and()
+                .httpBasic()
 
                 .and()
                 .exceptionHandling()

@@ -17,11 +17,11 @@ const createProductEle = function (product) {
             </div>
         </td>
         <td class="name"><a href="/products/${product.id}">${product.name}</a></td>
-        <td>${product.description.slice(0,40) + (product.description.length>40 ? '...' : '')}</td>
+        <td>${product.description != null ? (product.description.slice(0,40) + (product.description.length>40 ? '...' : '')) : ""}</td>
         <td class="currency">${currencyFormat(product.price)}</td>
         <td>${product.quantity}</td>
-        <td>${product.category.name}</td>
-        <td>${product.brand.name}</td>
+        <td>${product.category ? product.category.name : ""}</td>
+        <td>${product.brand ? product.brand.name : ""}</td>
         
         <td class="actions">
             <div class="center">

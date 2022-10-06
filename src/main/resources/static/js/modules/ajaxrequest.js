@@ -31,8 +31,8 @@ const makeRequest = function (method, endpoint, callback, callBackIfFail) {
     return xhr;
 }
 
-const sendPost = function (endpoint, body, callback) {
-    let xhr = makeRequest("POST", endpoint, callback);
+const sendPost = function (endpoint, body, callback, callbackIfFail) {
+    let xhr = makeRequest("POST", endpoint, callback, callbackIfFail);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(body));
 }
@@ -59,7 +59,8 @@ const doPut = function () {
 
 const ajaxRequest = {
     get : sendGet,
-    post : sendPost,
+    post : (endpoint, body, callback) => sendPost(endpoint, body, callback, false),
+    doPost : (endpoint, body, callback) => sendPost(endpoint, body, callback, true),
     put : (endpoint, body, callback) => sendPut(endpoint, body, callback, false),
     doPut : (endpoint, body, callback) => sendPut(endpoint, body, callback, true),
     delete : sendDelete

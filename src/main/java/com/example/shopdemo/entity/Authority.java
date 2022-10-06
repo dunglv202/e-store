@@ -1,8 +1,12 @@
 package com.example.shopdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "authorities")
@@ -15,6 +19,15 @@ public class Authority {
     @Column(name = "name")
     @NotEmpty(message = "Authority name is required")
     private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "role_managements",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "managed_by")
+    )
+    @JsonIgnore
+    private final Set<Authority> managedBy = new HashSet<>();
 
     public Authority() {
     }
@@ -42,6 +55,10 @@ public class Authority {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Authority> getManagedBy() {
+        return managedBy;
     }
 
     @Override

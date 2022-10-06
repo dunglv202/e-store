@@ -2,6 +2,7 @@ package com.example.shopdemo.handler;
 
 import com.example.shopdemo.exception.NotFoundException;
 import com.example.shopdemo.exception.UnauthenticatedException;
+import com.example.shopdemo.exception.UnauthorizedException;
 import com.example.shopdemo.pojo.RestResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -21,6 +22,14 @@ public class RestExceptionHandler {
         return RestResponse
                 .build()
                 .status(HttpStatus.UNAUTHORIZED)
+                .messages(e.getMessage());
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public RestResponse unauthorized(UnauthorizedException e) {
+        return RestResponse.build()
+                .status(HttpStatus.FORBIDDEN)
                 .messages(e.getMessage());
     }
 
