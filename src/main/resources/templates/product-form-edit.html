@@ -17,10 +17,18 @@
             Management Page
         </a>
     </nav>
+    <div id="preview-selector-panel" class="closeable">
+        <div id="preview-selections">
+
+        </div>
+        <div class="more-btn">More</div>
+        <div class="close-btn"></div>
+    </div>
     <form id="product-form" action="" method="POST" enctype="multipart/form-data">
         <div class="field preview">
             <div id="preview">
                 <img th:src="|/${product.preview}|">
+                <input type="hidden" id="product-preview" th:field="${product.preview}">
             </div>
         </div>
         <div class="field">

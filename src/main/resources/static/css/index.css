@@ -51,10 +51,12 @@
     justify-content: center;
 }
 .product .img-container {
-    max-height: 200px;
+    height: 200px;
 }
 .product .img-container img {
     transition: 0.2s;
+    object-fit: cover;
+    height: 100%;
     width: 100%;
 }
 .product:hover .img-container img {
@@ -98,10 +100,13 @@
     padding: 1rem;
 }
 .basic-info .name {
-    margin: 1rem;
+    margin: 0;
     padding: 0;
-    font-size: 1.1rem;
-    font-weight: 400;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+.basic-info .rating {
+    padding: 0.5rem 0;
 }
 .basic-info .price {
     font-size: 1.2rem;
@@ -202,7 +207,7 @@ input[type="submit"]:hover {
         grid-template-columns: repeat(2, 1fr);
     }
     .product .img-container {
-        max-height: 250px;
+        height: 220px;
     }
     .basic-info {
         text-align: center;
@@ -221,7 +226,7 @@ input[type="submit"]:hover {
         grid-template-columns: 1fr;
     }
     .product .img-container {
-        max-height: 300px;
+        height: 300px;
     }
 }
 

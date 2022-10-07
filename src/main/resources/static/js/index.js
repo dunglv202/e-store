@@ -21,6 +21,9 @@ const createProductEle = function (product) {
                 </div>
                 <div class="basic-info">
                     <h2 class="name">${product.name}</h2>
+                    <div class="rating">
+                        Rating: ${product.rating}/10
+                    </div>
                     <div class="price currency">${product.price}</div>
                 </div>
             </div>

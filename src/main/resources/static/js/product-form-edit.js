@@ -33,9 +33,46 @@ const renderImages = function (images) {
     }
 }
 
+const createPreviewImageOption = function(image) {
+    let ctn = document.createElement("div");
+    ctn.classList.add("img-container");
+
+    ctn.innerHTML = `
+        <img src="/${image.path}">
+    `;
+
+    ctn.addEventListener("click", function() {
+        // change thumbnail display
+        document.getElementById("preview").querySelector("img").src = `/${image.path}`;
+        // update preview field
+        document.getElementById("product-preview").value = image.path;
+        // close panel
+        document.getElementById("preview-selector-panel").style.display = "none";
+    })
+
+    return ctn;
+}
+
+const renderPreviewSelections = function (images) {
+    const previewSelectionsContainer = document.getElementById("preview-selections");
+    for (let image of images) {
+        previewSelectionsContainer.appendChild(createPreviewImageOption(image));
+    }
+}
+
 const loadImage = function () {
     productService.getImages(productId, imagePage, IMAGE_PER_LOAD, renderImages);
     imagePage++;
+}
+
+let previewPage = 0;
+const loadPreviewSelections = function () {
+    productService.getImages(productId, previewPage, IMAGE_PER_LOAD, function(images) {
+        if (images.length > 0) {
+            renderPreviewSelections(images);
+            previewPage++;
+        }
+    })
 }
 
 window.addEventListener("load", function() {
@@ -46,4 +83,21 @@ window.addEventListener("load", function() {
         e.preventDefault();
         loadImage();
     });
+
+    const closeableEles = document.getElementsByClassName("closeable");
+    for (let closeableEle of closeableEles) {
+        let closeBtn = closeableEle.querySelector(".close-btn");
+        closeBtn.addEventListener("click", function() {
+            closeableEle.style.display = "none";
+        })
+    }
+
+    const preview = document.getElementById("preview");
+    const previewSelectorPanel = document.getElementById("preview-selector-panel");
+    preview.addEventListener("click", function() {
+        previewSelectorPanel.style.display = "block";
+        loadPreviewSelections();
+    })
+
+    previewSelectorPanel.querySelector(".more-btn").addEventListener("click", loadPreviewSelections);
 })

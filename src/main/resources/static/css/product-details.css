@@ -4,7 +4,7 @@
 
 #product-container {
     display: grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: minmax(auto, 430px) auto;
     box-sizing: border-box;
     padding: 2rem 2rem 0 2rem;
     gap: 2rem;

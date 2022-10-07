@@ -28,7 +28,7 @@
                         </div>
                     </a>
                     <div class="rating">
-                        <input type="number" min="1" max="10" th:attrappend="value=${e.value != null} ? e.value.rating, readonly=${nonEditable} ? true">
+                        <input type="number" min="1" max="10" th:attrappend="value=${e.value != null} ? ${e.value.rating}, readonly=${nonEditable} ? true" placeholder="Rating">
                     </div>
                 </div>
             </div>
