@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/review.css">
+
+    <script src="https://kit.fontawesome.com/a46c56187f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div th:replace="/fragments/navigation.html :: nav"></div>
+
+    <div id="container">
+        <div class="item" th:each="e : ${itemReviews}" th:data-item-id="${e.key.id}">
+            <div class="product">
+                <div class="left">
+                    <div class="preview">
+                        <img th:src="@{|/${e.key.product.preview}|}">
+                    </div>
+                </div>
+                <div class="right">
+                    <a th:href="@{|/products/${e.key.product.id}}|">
+                        <div class="name" th:text="${e.key.product.name}">
+                        </div>
+                    </a>
+                    <div class="rating">
+                        <input type="number" min="1" max="10" th:attrappend="value=${e.value != null} ? e.value.rating, readonly=${nonEditable} ? true">
+                    </div>
+                </div>
+            </div>
+            <div class="comment">
+                <textarea placeholder="Your comment..." th:text="${(e.value != null) ? e.value.comment : null}" th:attrappend="readonly=${nonEditable} ? true"></textarea>
+            </div>
+            <div class="actions">
+                <button class="publish-btn" th:data-is-new="${e.value==null}" th:attrappend="data-review-id=${e.value != null} ? ${e.value.id}" th:if="${nonEditable==null}">Publish</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/review.js"></script>
+</body>
+</html>

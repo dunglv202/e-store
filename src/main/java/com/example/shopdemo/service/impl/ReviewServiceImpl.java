@@ -2,6 +2,7 @@ package com.example.shopdemo.service.impl;
 
 import com.example.shopdemo.entity.*;
 import com.example.shopdemo.enumtype.OrderStatus;
+import com.example.shopdemo.exception.AlreadyExistsException;
 import com.example.shopdemo.exception.NotFoundException;
 import com.example.shopdemo.exception.UnauthorizedException;
 import com.example.shopdemo.repository.OrderItemRepository;
@@ -47,12 +48,21 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public Review getReviewForItem(Integer orderItemId) {
+        return reviewRepo.findByOrderItemId(orderItemId).orElse(null);
+    }
+
+    @Override
     public Review addReview(@Valid Review review, User user) {
         // check if order item exists
         System.err.println(orderItemRepo.findById(49).isPresent());
         Optional<OrderItem> orderItem = orderItemRepo.findById(review.getOrderItem().getId());
         if (!orderItem.isPresent() || !orderItem.get().getOrder().getUser().equals(user))
             throw new NotFoundException("Order item not found - ID: " + review.getOrderItem().getId());
+
+        // check if user already left a review for this item
+        if (reviewRepo.existsByOrderItemId(review.getOrderItem().getId()))
+            throw new AlreadyExistsException("You can have only one review for each item");
 
         // check if order was created on last 60 days
         Order order = orderItem.get().getOrder();

@@ -33,11 +33,18 @@ const createOrderEle = function (order) {
             <div class="price currency">
                 ${new Intl.NumberFormat('en-US').format(order.total)}
             </div>
-            <div class="status pending">
+            <div class="status ${order.status.toLowerCase()}">
                 ${order.status}
             </div>
         </li>
     `;
+    if (order.status === "RECEIVED") {
+        let rateBtn = document.createElement("a");
+        rateBtn.href = `/order/history/${order.id}/review`;
+        rateBtn.classList.add("leave-review")
+        rateBtn.innerHTML = "Review"
+        ctn.querySelector("li .status").appendChild(rateBtn);
+    }
     return ctn;
 }
 

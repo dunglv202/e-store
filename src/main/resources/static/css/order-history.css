@@ -125,6 +125,13 @@
 #more-order-btn {
     margin-bottom: 2rem;
 }
+#order-list .order .leave-review {
+    padding: 0.5rem;
+    color: orange;
+}
+#order-list .order .leave-review:hover {
+    color: rgba(43, 43, 43, 0.9);
+}
 
 .fas {
     color: inherit;

@@ -10,6 +10,7 @@ import javax.validation.Valid;
 public interface ReviewService {
     Page<Review> getAllReviews(Integer productId, Pageable pagination);
     Review getReview(Integer id);
+    Review getReviewForItem(Integer orderItemId);
 
     Review addReview(@Valid Review review, User user);
 
