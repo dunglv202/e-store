@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class FileUtils {
     public static enum FileType {
-        IMAGE ("jpg", "png", "jpeg"),
+        IMAGE ("jpg", "png", "jpeg", "webp"),
         MS_EXCEL ("csv", "xlsx");
 
         private Set<String> supportedExtensions = new HashSet<>();

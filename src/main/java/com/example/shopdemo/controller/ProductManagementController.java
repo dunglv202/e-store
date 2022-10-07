@@ -45,7 +45,7 @@ public class ProductManagementController {
                              @RequestParam("images") MultipartFile[] images) {
         product = productService.addProduct(product);
         productService.addAllImages(product.getId(), images);
-        return "product-form";
+        return "redirect:edit/" + product.getId();
     }
 
     @GetMapping("/edit/{productId}")

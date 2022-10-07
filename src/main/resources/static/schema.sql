@@ -48,7 +48,7 @@ create table `user_authorities` (
     `authority_id` int not null,
 
     constraint `uni_user_authorities` unique (`user_id`, `authority_id`),
-    constraint `fk_user` foreign key (`user_id`) references `users`(`id`) on delete cascade,
+    constraint `fk_user` foreign key (`user_id`) references `users`(`id`),
     constraint `fk_authority` foreign key (`authority_id`) references `authorities`(`id`)
 );
 
@@ -59,7 +59,7 @@ create table `cart_items` (
     `user_id` int not null,
 
     constraint `fk_product` foreign key (`product_id`) references `products`(`id`),
-    constraint `fk_cart_user` foreign key (`user_id`) references `users`(`id`) on delete cascade
+    constraint `fk_cart_user` foreign key (`user_id`) references `users`(`id`)
 );
 
 create table `recipients` (
@@ -78,7 +78,7 @@ create table `orders` (
     `status` varchar(80) not null,
     `date_created` timestamp not null,
 
-    constraint `fk_orders_users` foreign key (`user_id`) references `users` (`id`) on delete cascade,
+    constraint `fk_orders_users` foreign key (`user_id`) references `users` (`id`),
     constraint `fk_orders_recipients` foreign key (`recipient_id`) references `recipients` (`id`)
 );
 

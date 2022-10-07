@@ -95,16 +95,20 @@ public class UserServiceImpl implements UserService {
         if (userRepo.findByUsername(user.getUsername()).isPresent())
             throw new AlreadyExistsException("Username '" + user.getUsername() +"' already existed");
 
+        // store backup of authorities
+        Set<Authority> authorities = user.getAuthorities();
+
         // save user to db
         user.setId(null);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAuthorities(new HashSet<>());
         user = userRepo.save(user);
 
         // add authorities to user
         if (auth == null || !auth.isAuthenticated()) {
             return addAuthorities(user.getId(), null, null);
         } else {
-            return addAuthorities(user.getId(), user.getAuthorities(), AuthenticationUtils.getUser(auth));
+            return addAuthorities(user.getId(), authorities, AuthenticationUtils.getUser(auth));
         }
     }
 
@@ -136,7 +140,8 @@ public class UserServiceImpl implements UserService {
             getUser(userId).getAuthorities().add(ROLE_CUSTOMER);
         } else {
             authorities.forEach(authority -> {
-                addAuthority(userId, authority.getId(), loggedUser);
+                Authority foundAuthority = authorityRepo.findByName(authority.getName()).orElseThrow(() -> new NotFoundException("Authority not found - " + authority.getName()));
+                addAuthority(userId, foundAuthority.getId(), loggedUser);
             });
         }
 

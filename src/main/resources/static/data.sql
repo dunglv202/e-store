@@ -24,11 +24,21 @@ values  (1, 1),
         (2, 2);
 
 insert into `brands` (`name`)
-values  ('SHOES'),
-        ('BOOT'),
-        ('T-SHIRT'),
-        ('HAT');
+values  ('XIAOMI'),
+        ('VIVO'),
+        ('OPPO'),
+        ('REALME'),
+        ('VSMART'),
+        ('SAMSUNG'),
+        ('HUAWEI'),
+        ('APPLE'),
+        ('DELL'),
+        ('HP'),
+        ('ACER'),
+        ('ASUS'),
+        ('LENOVO');
 
 insert into `categories` (`name`)
-values  ('CLOTHES'),
-        ('UNNAMED');
+values  ('SMARTPHONE'),
+        ('LAPTOP');
+

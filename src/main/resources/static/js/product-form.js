@@ -1,4 +1,4 @@
-const MAX_FILE_SIZE = 4; // in MB
+const MAX_FILE_SIZE = 3; // in MB
 
 const makePreviewEle = function(imgFile) {
     let ctn = document.createElement("div");
