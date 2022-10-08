@@ -21,6 +21,14 @@
                 <i class="far fa-times-circle"></i>
             </div>
             <input th:field="*{keyword}" type="search" placeholder="Search...">
+            <select th:field="*{category}">
+                <option value="">CATEGORY</option>
+                <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+            </select>
+            <select th:field="*{brand}">
+                <option value="">BRAND</option>
+                <option th:each="brand : ${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
+            </select>
             <input th:field="*{minPrice}" type="number" min="0" placeholder="Min Price">
             <input th:field="*{maxPrice}" type="number" min="0" placeholder="Max Price">
             <select th:field="*{sortedBy}">
